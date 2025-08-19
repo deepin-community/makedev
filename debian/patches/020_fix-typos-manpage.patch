@@ -1,0 +1,31 @@
+Description: fix some typos in manpage
+Author: Joao Eriberto Mota Filho <eriberto@debian.org>
+Last-Update: 2022-02-03
+Index: makedev/MAKEDEV.man
+===================================================================
+--- makedev.orig/MAKEDEV.man
++++ makedev/MAKEDEV.man
+@@ -800,7 +800,7 @@ Creates framebuffer devices
+ .B fb{0..7}
+ If the framebuffer number 
+ .I x 
+-is specifed, a group of  
++is specified, a group of  
+ .BI fb x user {0..7} 
+ devices is created.
+ .TP
+@@ -850,12 +850,12 @@ Generic SCSI devices.  The devices creat
+ .B sg0 
+ through 
+ .BR sg16 .
+-These allow arbitary commands to be sent to any SCSI device, to query
++These allow arbitrary commands to be sent to any SCSI device, to query
+ information or control SCSI devices that are not disk, tape or CDROM
+ (for example, scanner or writeable CDROM).
+ .TP
+ .I fd
+-To allow an arbitary program to be fed input from file descriptor
++To allow an arbitrary program to be fed input from file descriptor
+ .IR x ,
+ use
+ .BI /dev/fd/ x

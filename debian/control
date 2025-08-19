@@ -1,11 +1,12 @@
 Source: makedev
 Section: admin
 Priority: optional
-Maintainer: Debian QA Group <packages@qa.debian.org>
-Build-Depends: debhelper (>= 5)
-Standards-Version: 3.9.3
-Vcs-Git: git://git.gag.com/debian/makedev
-Vcs-Browser: http://git.gag.com/?p=debian/makedev
+Maintainer: Guilherme de Paula Xavier Segundo <guilherme.lnx@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Rules-Requires-Root: binary-targets
+Vcs-Browser: https://salsa.debian.org/debian/makedev
+Vcs-Git: https://salsa.debian.org/debian/makedev.git
 
 Package: makedev
 Architecture: all
@@ -15,7 +16,7 @@ Multi-Arch: foreign
 Description: creates device files in /dev
  The MAKEDEV executable is used to create device files, often in /dev.
  .
- Device files are special files through which applications can interact 
+ Device files are special files through which applications can interact
  with hardware.
  .
  This package is not necessary for most modern Linux systems, where the udev

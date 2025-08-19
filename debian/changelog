@@ -1,3 +1,47 @@
+makedev (2.3.1-97) unstable; urgency=medium
+
+  * debian/control: reverted relationship removal. (Closes: #1012283)
+
+ -- Guilherme de Paula Xavier Segundo <guilherme.lnx@gmail.com>  Fri, 03 Jun 2022 09:07:08 -0300
+
+makedev (2.3.1-96) unstable; urgency=medium
+
+  * New maintainer. (Closes: #543592)
+  * debian/control: removed a relationship for udev.
+  * debian/copyright: added packaging rights.
+
+ -- Guilherme de Paula Xavier Segundo <guilherme.lnx@gmail.com>  Wed, 01 Jun 2022 06:13:54 -0300
+
+makedev (2.3.1-95) unstable; urgency=medium
+
+  * QA upload.
+  * Migrations:
+      - DebSrc to 3.0.
+      - debian/copyright to 1.0 format. Consequently:
+          ~ debian/dirs: removed no longer needed line
+            usr/share/lintian/overrides.
+          ~ debian/makedev.lintian: no longer needed. Removed.
+      - debian/rules to new (reduced) format.
+  * Using new DH level format. Consequently:
+      - debian/compat: removed.
+      - debian/control: changed from 'debhelper' to 'debhelper-compat' in
+        Build-Depends field and bumped level to 13.
+      - Closes: #965713
+  * debian/control:
+      - Added 'Rules-Requires-Root: binary-targets' to source stanza.
+      - Bumped Standards-Version to 4.6.0.
+      - Changed Vcs-* URLs to salsa.debian.org.
+  * debian/gbp.conf: removed.
+  * debian/lintian-overrides: created to override a false-positive about a
+    device name.
+  * debian/patches/:
+      - 010_patches-from-1.0: created to gather old patches from DebSrc 1.0.
+      - 020_fix-typos-manpage.patch: created to fix some typos in manpage.
+  * debian/postinst: added 'set -e'.
+  * debian/salsa-ci.yml: added to provide CI tests for Salsa.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Thu, 03 Feb 2022 01:51:59 -0300
+
 makedev (2.3.1-94.1) unstable; urgency=medium
 
   * Non maintainer upload by the Reproducible Builds team.
@@ -30,7 +74,7 @@ makedev (2.3.1-93) unstable; urgency=low
 makedev (2.3.1-92) unstable; urgency=low
 
   * QA upload.
-  * Fix "postinst fails on non-default Debian kernels and is 
+  * Fix "postinst fails on non-default Debian kernels and is
     useless on =< 3.4":
     drop check for kernel version >= 2.4
     (Closes: #685376)
@@ -97,7 +141,7 @@ makedev (2.3.1-85) unstable; urgency=low
   * patch to eliminate obsolete init.d conffile from Petter Reinholdtsen,
     closes: #459677
   * update postinst to only attempt to make fb if the kernel is Linux, and
-    move chmod of /dev/tty[0-9]* after the forced creation of those devices 
+    move chmod of /dev/tty[0-9]* after the forced creation of those devices
     so postinst fails less particularly on kfreebsd, closes: #444979, #388270
   * major number for pktcdvd is now dynamic, don't try to create devices with
     old/wrong major number, closes: #405819
@@ -180,7 +224,7 @@ makedev (2.3.1-77) unstable; urgency=medium
 
   * update udev handling on advice from Marco d'Itri.  Handles more cases
     and provides the ability to override the avoidance logic if environment
-    variable WRITE_ON_UDEV is set.  Urgency medium to help a new udev upload 
+    variable WRITE_ON_UDEV is set.  Urgency medium to help a new udev upload
     depending on this behavior get into sarge.  closes: #264421
   * change hwrandom to hwrng, closes: #295324
   * patch from Gaudenz Steinlin to add input/uinput support, closes: #294361
@@ -250,14 +294,14 @@ makedev (2.3.1-69) unstable; urgency=medium
     turns out I already fixed the /dev/tty[0-9]* permissions way back in -59,
     we just hadn't done anything in postinst to force them tighter on upgrade,
     ergo the confusion in -67 and -68.  [large sigh]
-  * MAKEDEV creates /dev/tty[0-9]* as 0600, and mesg wiggles the group write 
+  * MAKEDEV creates /dev/tty[0-9]* as 0600, and mesg wiggles the group write
     bit, so make the postinst do 'chmod g-r,o= /dev/tty[0-9]*' instead of "o="
 
  -- Bdale Garbee <bdale@gag.com>  Tue, 27 Apr 2004 09:38:30 -0600
 
 makedev (2.3.1-68) unstable; urgency=medium
 
-  * oops, we need to leave 'tty' as 0666 as we tighten the permissions on 
+  * oops, we need to leave 'tty' as 0666 as we tighten the permissions on
     other tty* devices, closes: #245761, #245737, #244735, #245718
   * mountpoint -q doesn't work in all cases to detect udev, try a different
     approach, closes: #245777, #245739
@@ -282,7 +326,7 @@ makedev (2.3.1-66) unstable; urgency=low
   * make amd64 use generic-i386 instead of being unhandled, closes: #238486
   * add support for mwave, closes: #229926
   * rename intel_rng to hwrandom, closes: #234366
-  * add suport for making loop[0..255], closes: #227369
+  * add support for making loop[0..255], closes: #227369
   * add usblcd and cpad0 per lanana creation to usb target, closes: #184740
   * force update of fb devices in postinst if kernel >= 2.4 and they already
     exist, closes: #232108
@@ -308,7 +352,7 @@ makedev (2.3.1-65) unstable; urgency=low
     extra tokens on the line in /proc/devices
   * patch from Henrique de Moraes Holschuh to protect against unexpected chars
     in /proc/devices entries, closes: #224582
-  * use permission class 'dialout' for bluetooth devices, and increase 
+  * use permission class 'dialout' for bluetooth devices, and increase
     robustness of the 'makedev' function, closes: #177118
   * freshen fb targets to reflect new minor numbers, closes: #186486, #186410
 
@@ -390,7 +434,7 @@ makedev (2.3.1-58) unstable; urgency=low
   * change default groups for irda devices to better match their use,
     closes: #135207
   * add support for ataraid using patch from Eduard Bloch, closes: #121863
-  * add support for cciss using patch from Matt Kraai, 
+  * add support for cciss using patch from Matt Kraai,
     closes: #132864, #132975, #136016
 
  -- Bdale Garbee <bdale@gag.com>  Sat,  2 Mar 2002 17:46:52 -0700
@@ -402,11 +446,11 @@ makedev (2.3.1-57) unstable; urgency=low
     device as far as I can see.
   * add target 'usb' which creates usb/{lp*,mouse*,ez*,scanner*}, usb/rio500,
     ttyACM*, and ttyUSB* devices.  These are all the USB devices I see listed
-    in the 2.4.17 devices.txt file.  Since USB is a hotplug medium, 
+    in the 2.4.17 devices.txt file.  Since USB is a hotplug medium,
     mass-creation seems like a good strategy.  closes: #62222, #89932
   * add target 'paride' which creates pd[abcd]*, pcd[0-3], pf[0-3] devices
     in support of parallel port IDE controllers, closes: #113122
-  * add recognition of 'ppp', 'usb', 'ramdisk' when running MAKEDEV update, 
+  * add recognition of 'ppp', 'usb', 'ramdisk' when running MAKEDEV update,
     don't whine about 'lvm' since no makedev support is required, leave 'nbd'
     unrecognized since I don't know what it is, closes: #113231
 
@@ -417,7 +461,7 @@ makedev (2.3.1-56) unstable; urgency=medium
   * add support for pktcdvd devices 0..3, closes: #99725
   * add support for ppp device, closes: #101172
   * add support for comedi devices 0..3, closes: #105417
-  * increase number of raw devices from 4 to 8, and add rawctl symlink to 
+  * increase number of raw devices from 4 to 8, and add rawctl symlink to
     raw, closes: #106087, #108296, #117846, #85694
   * set priority to medium since we'd like this in woody
 
@@ -444,7 +488,7 @@ makedev (2.3.1-53) unstable; urgency=low
   * add support for mipsel, closes: #97529
   * update joystick major number to 13 consistently, closes: #96537
   * recognize ide4 and ide5 during update, closes: #92995
-  * oops, /dev/cpu/microcode should be char, not block device, 
+  * oops, /dev/cpu/microcode should be char, not block device,
     closes: #93160, #82720
   * add rtc to generic-hppa, closes: #94246
   * add 'raw' target for /dev/raw and /dev/raw[0-3], closes: #98064
@@ -463,7 +507,7 @@ makedev (2.3.1-52) unstable; urgency=low
   * check for .devfsd in current dir, not /dev, since that's where MAKEDEV
     creates devices, closes: #89857, #88050
   * create a new target 'input' and add it to generic-powerpc to support the
-    new input subsystem currently used only for USB devices.  This addresses 
+    new input subsystem currently used only for USB devices.  This addresses
     part of 62222 and 89932, and closes: #87854
   * fix remaining lintian warnings
 
@@ -481,7 +525,7 @@ makedev (2.3.1-51) unstable; urgency=low
   * make /dev/random writeable, as per Ted Ts'o, closes: #81748
   * add initial support for mips, closes: #82345
   * add support for cpu/microcode, closes: #82720
- 
+
  -- Bdale Garbee <bdale@gag.com>  Mon,  5 Feb 2001 20:59:26 -0700
 
 makedev (2.3.1-50) unstable; urgency=low
@@ -562,10 +606,10 @@ makedev (2.3.1-45) stable unstable; urgency=low
   * Made joystick devices readable by everybody (closes: Bug#61499)
   * Added '$opts' whenever $0 aka MAKEDEV gets called, thus `-n' is passed
     to the child properly, closes: #63159
-  * Added hyphen `-' between i2c and the number as described by devices.txt, 
+  * Added hyphen `-' between i2c and the number as described by devices.txt,
     closes: #63523
   * Fixed wrong creation of hdi hdj hdk and hdl, closes: #64881
-  * Added hdc and hdd to generic-powerpc since they were missing, 
+  * Added hdc and hdd to generic-powerpc since they were missing,
     closes: #65852
   * Added support for ttyI and cui (ignored) to 'update' target by
     modifying cvt(), closes: #66838
@@ -622,7 +666,7 @@ makedev (2.3.1-40) frozen unstable; urgency=low
     makes this worth adding to frozen, even though there's no bug in the BTS
     about it (problem reported and fixed during an IRC session).  There are
     still a few potential major number problems in MAKEDEV, but they're all
-    for obscure devices that are not in devices.txt, and which I'll therefore 
+    for obscure devices that are not in devices.txt, and which I'll therefore
     probably remove entirely when rewriting makedev for woody.
   * fix type, smtpe should be smpte, closes: #59061
 
@@ -663,7 +707,7 @@ makedev (2.3.1-36) unstable; urgency=low
   * create an initial generic-arm target, anticipating the need as debian-arm
     struggles to get ready to release with potato.
   * update handling of network block devices (nb) so that specifying a single
-    device works as expected.  calling for 'nb' will give nb0 and nb1.  
+    device works as expected.  calling for 'nb' will give nb0 and nb1.
     Closes: #53781
   * support digital joysticks (djs) in joystick/js target, closes: #53314
   * update to current policy rev, add Build-Depends.
@@ -713,7 +757,7 @@ makedev (2.3.1-31) unstable; urgency=low
  -- Bdale Garbee <bdale@gag.com>  Wed, 10 Nov 1999 23:58:56 -0700
 
 makedev (2.3.1-30) unstable; urgency=low
-  
+
   * fill in a few more audio devices, closes: #49107
 
  -- Bdale Garbee <bdale@gag.com>  Wed,  3 Nov 1999 20:28:54 -0700
@@ -737,7 +781,7 @@ makedev (2.3.1-29) unstable; urgency=low
 
 makedev (2.3.1-28) unstable; urgency=medium
 
-  * /o\ oops... -27 was broken badly.  Close 42355, 42359, 42361. 
+  * /o\ oops... -27 was broken badly.  Close 42355, 42359, 42361.
 
  -- Bdale Garbee <bdale@gag.com>  Tue,  3 Aug 1999 02:38:06 -0600
 
@@ -790,7 +834,7 @@ makedev (2.3.1-23) stable unstable; urgency=low
 makedev (2.3.1-22) unstable; urgency=low
 
   * add 'hamradio' as a target, which is a macro for the new scc[0-7] and
-    bc[0-3] targets, closes 34773.  
+    bc[0-3] targets, closes 34773.
 
  -- Bdale Garbee <bdale@gag.com>  Wed, 14 Apr 1999 11:55:46 -0600
 
@@ -845,7 +889,7 @@ makedev (2.3.1-15) frozen unstable; urgency=medium
   * change audio devices to root.audio 660, closes 32849
   * apply patch from Eric Delaunay to fix problem with scsi devices and 2.2
     kernels, closes 32999
-  * target 'frozen' since the sunmouse fix at the very least should be in 
+  * target 'frozen' since the sunmouse fix at the very least should be in
     slink...
 
  -- Bdale Garbee <bdale@gag.com>  Wed, 17 Feb 1999 16:53:41 -0700
@@ -868,7 +912,7 @@ makedev (2.3.1-12) frozen unstable; urgency=low
   * update manpage to indicate the manpage is out of date, I need to make a
     chunk of time at some point to give it a thorough review/update.
   * don't make /dev/cua*, fix group on /dev/ttyS*, closes 30867
-  * change postinst to use syntax that isn't bash-specific, closes 18807 
+  * change postinst to use syntax that isn't bash-specific, closes 18807
     and 30849
 
  -- Bdale Garbee <bdale@gag.com>  Sat,  9 Jan 1999 00:39:25 -0700
@@ -876,9 +920,9 @@ makedev (2.3.1-12) frozen unstable; urgency=low
 makedev (2.3.1-11) frozen unstable; urgency=low
 
   * allow 16 sd's instead of 8, as the kernel does.  closes 30555.
-  * create hdc and hdd in generic-i386, and create 20 partitions per hd 
+  * create hdc and hdd in generic-i386, and create 20 partitions per hd
     instead of 4, closes 30522.
-  * go back (forward?) to using 'u' instead of '[DHE]' in fd entries, 
+  * go back (forward?) to using 'u' instead of '[DHE]' in fd entries,
     closes 30438.
   * add 'fb' to both the generic-i386 and generic-powerpc clauses, closes
     29228
@@ -953,8 +997,8 @@ makedev (2.3.1-3) unstable; urgency=low
 
   * use 'dialout' instead of 'serial' to select owner/group/perms for ISDN
     devices, closes 27536
-  * use 'dialout' as group for serial devices instead of 'uucp' to be 
-    compatible with prior Debian makedev packages. 
+  * use 'dialout' as group for serial devices instead of 'uucp' to be
+    compatible with prior Debian makedev packages.
 
  -- Bdale Garbee <bdale@gag.com>  Wed,  7 Oct 1998 22:50:36 -0600
 
@@ -972,13 +1016,13 @@ makedev (2.3.1-2) unstable; urgency=low
 makedev (2.3.1-1) unstable; urgency=low
 
   * New upstream version.  This is a *significant* change!
-    This is a move (back?) from the short-lived makedev that depended on a     
-    non-free parser to the one that is just a shell script.  We will now be    
-    more like other Linux distributions, no longer depending on a non-free     
-    hunk of code to build the makedev package, and some porting and other      
-    issues will get better.                                                    
-  * With the major change in upstream code, several bugs are not relevant 
-    any more.  Therefore, close 12949, 18037, 18807, 20665, 22648, 22868, 
+    This is a move (back?) from the short-lived makedev that depended on a
+    non-free parser to the one that is just a shell script.  We will now be
+    more like other Linux distributions, no longer depending on a non-free
+    hunk of code to build the makedev package, and some porting and other
+    issues will get better.
+  * With the major change in upstream code, several bugs are not relevant
+    any more.  Therefore, close 12949, 18037, 18807, 20665, 22648, 22868,
     23771, 23898, 24477, 24572, 25660, 25840, 26058.
   * add support for /dev/ptmx, built as part of pty*, closes 23612.
   * add support for /dev/ed[ab], closes 23887.
@@ -988,7 +1032,7 @@ makedev (2.3.1-1) unstable; urgency=low
 makedev (1.6-32) frozen unstable; urgency=medium
 
   * serial devices now owned by root.dialout, closes 22297 (important)
-  * tape devices now owned by root.tape, closes 11910 
+  * tape devices now owned by root.tape, closes 11910
   * be explicit about which 'ls' we're calling, closes 22225
 
  -- Bdale Garbee <bdale@gag.com>  Fri, 22 May 1998 23:52:58 -0600
@@ -1023,7 +1067,7 @@ makedev (1.6-28) unstable; urgency=low
 
 makedev (1.6-27) unstable; urgency=low
 
-  * changed /dev/console handling. 
+  * changed /dev/console handling.
   * updated devinfo to kernel 2.1.62 device list.
   * changed all device with group "sys" to group "root".
 
@@ -1089,18 +1133,18 @@ makedev (1.6-19) unstable; urgency=low
 
 makedev (1.6-18) unstable; urgency=low
 
-  * added isdn-*-small devices (only 8 devices, not 64). 
+  * added isdn-*-small devices (only 8 devices, not 64).
 
  -- Andreas Jellinghaus <aj@debian.org>  Fri, 22 Aug 1997 12:57:20 +0200
 
 makedev (1.6-17) unstable; urgency=low
 
-  * close bug 6541 (missing audio device) : not reproduceable 
+  * close bug 6541 (missing audio device) : not reproducible
   * generate random and urandom, if missing (bug #12134)
   * enabled makedev to create more sg* and sr* devices (bug #12158)
   * changed doubletalkt to dtlk as requested
   * sd[a-h]16 removed (bug, sda16 = sdb, scsi only supports 15
-    partitions) 
+    partitions)
 
  -- Andreas Jellinghaus <aj@debian.org>  Sun, 17 Aug 1997 19:19:33 +0200
 
@@ -1192,17 +1236,17 @@ makedev (1.6-4) unstable frozen; urgency=low
 
   * fixed manpage, added generic-m68k, added mfd0, changed framebuffer
         create both : fb[01] and fb[01]current, changed framebuffer
-        class to mode 664. disabled adb (apple desktob bus).
+        class to mode 664. disabled adb (apple desktop bus).
         this fixes bug #9053
-  * fixed mitsumi cdrom detection. 
+  * fixed mitsumi cdrom detection.
 
  -- Andreas Jellinghaus <aj@debian.org>  Wed, 23 Apr 1997 16:23:50 +0200
 
 makedev (1.6-3) unstable frozen; urgency=low
 
-  * bug fixed : st?l devices (nor st?1). 
+  * bug fixed : st?l devices (nor st?1).
   * only create fd0 and fd1 with generic
-  * seperated old device names to "-old" groups
+  * separated old device names to "-old" groups
   * not generating cm205cd by default
   * "boot-floppy" added with less devices
   * documentation in sgml and txt format
@@ -1211,7 +1255,7 @@ makedev (1.6-3) unstable frozen; urgency=low
 
 makedev (1.6-2) unstable frozen; urgency=high
 
-  * new maintainer Andreas Jellinghaus <aj@debian.org> 
+  * new maintainer Andreas Jellinghaus <aj@debian.org>
   * rewrote devinfo (according to linux allocated devices, 2.0.30,2.1.31
   * this fixes bug #8396 (isdn devices)
   * this fixes bug #8399 (don't generate cu* devices)

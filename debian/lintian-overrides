@@ -1,0 +1,2 @@
+# Not a typo. 'lik' is Logitech Internet Keyboard (a device).
+makedev: typo-in-manual-page usr/share/man/man8/MAKEDEV.8.gz line 1065 lik link
